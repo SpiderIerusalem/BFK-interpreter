@@ -11,7 +11,6 @@ int main(int argc,int argv[])
  char dump[MDUMP];
  char *ptr;
  int line;
- //for(line=0;line<MDUMP;line++) dump[line]='0';
  line=0;
  fflush(stdin);
  printf("?}");
@@ -21,6 +20,7 @@ int main(int argc,int argv[])
  {
   line++;ptr++;
  }
+ getchar();
  translate(dump,0,++line);
  return 0;
 }
@@ -40,13 +40,14 @@ int translate(char dump[MDUMP],int start,int mem)
             {
             while(ptr[line]>0)
                {
-               tmp=translate(dump,cline+1,mem);
-               ptr[line]--;
+               tmp=translate(dump,cline+1,line);
+               //ptr[line]--;
                }
             cline=tmp;
             }
   elif(ptr[cline]==']') return cline;
   elif(ptr[cline]=='.') putchar(ptr[line]);
+  elif(ptr[cline]==',') {fflush(stdin); ptr[line]=getchar();}
   cline++;
  }
  puts("");
